@@ -23,7 +23,7 @@
 
                 {% for cate in categories %}
                 <li class="nav-item">
-                    <a class="nav-link" href="/categories_{{ cate.id }}">{{cate.name }}</a>
+                    <a class="nav-link" href="/?cate_id={{ cate.id }}">{{cate.name }}</a>
                 </li>
                 {% endfor %}
 

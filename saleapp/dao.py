@@ -11,6 +11,6 @@ def load_products(cate_id=None):
     with open(f'{app.root_path}/data/products.json', encoding='utf-8') as f:
         products = json.load(f)
     if cate_id:
-        products = filter(lambda p: p.category_id == cate_id, products)
+        products = filter(lambda p: p['category_id'] == int(cate_id), products)
 
     return products
