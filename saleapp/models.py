@@ -38,4 +38,4 @@ if __name__ == '__main__':
                      category_id=2)
         db.session.add_all([p1, p2, p3, p4])
         db.session.commit()
-        db.create_all()
+        # db.create_all()
