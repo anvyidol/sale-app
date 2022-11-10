@@ -46,11 +46,19 @@ class Product(BaseModel):
 
 if __name__ == '__main__':
     with app.app_context():
-        password = str(hashlib.md5('123456'.encode('utf-8')).hexdigest())
+        # password = str(hashlib.md5('123456'.encode('utf-8')).hexdigest())
+        #
+        # u = User(name='Admin', username='admin', password=password, avatar='https://res.cloudinary.com/dxxwcby8l/image/upload/v1646729569/fi9v6vdljyfmiltegh7k.jpg', user_role=UserRole.USER)
+        # db.session.add(u)
+        # db.session.commit()
 
-        u = User(name='Normal', username='usernull', password=password, avatar='https://res.cloudinary.com/dxxwcby8l/image/upload/v1646729569/fi9v6vdljyfmiltegh7k.jpg', user_role=UserRole.USER)
-        db.session.add(u)
-        db.session.commit()
+        # c1 = Category(name="Điện thoại")
+        # c2 = Category(name="Máy tính bảng")
+        # c3 = Category(name="Phụ kiện")
+        #
+        # db.session.add_all([c1, c2, c3])
+        # db.session.commit()
+
         # p1 = Product(name='Galaxy S22 Pro', description='Samsung, 128GB', price=25000000,
         #              image='https://res.cloudinary.com/dxxwcby8l/image/upload/v1646729569/fi9v6vdljyfmiltegh7k.jpg',
         #              category_id=1)
@@ -65,5 +73,6 @@ if __name__ == '__main__':
         #              category_id=2)
         # db.session.add_all([p1, p2, p3, p4])
         # db.session.commit()
+
         # db.create_all()
         pass

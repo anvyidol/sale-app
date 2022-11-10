@@ -9,7 +9,7 @@
                 <img class="card-img-top" src={{ p.image }} alt="{{ p.name }}">
                 <div class="card-body">
                     <h4 class="card-title">{{ p.name }}</h4>
-                    <p class="card-text">{{p.description}}</p>
+                    <p class="card-text">{{p.description|safe}}</p>
                     <p class="card-text">{{ "{:,.0f}".format(p.price) }}đ</p>
                     <a href="/product/{{ p.id }}" class="btn btn-primary">Chi tiết</a>
                     <a href="/product/{{ p.id }}" class="btn btn-danger btn-primary">Đặt mua</a>
