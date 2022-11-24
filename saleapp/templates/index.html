@@ -12,7 +12,7 @@
                     <p class="card-text">{{p.description|safe}}</p>
                     <p class="card-text">{{ "{:,.0f}".format(p.price) }}đ</p>
                     <a href="/product/{{ p.id }}" class="btn btn-primary">Chi tiết</a>
-                    <a href="/product/{{ p.id }}" class="btn btn-danger btn-primary">Đặt mua</a>
+                    <a href="javascript:;" onclick="addToCart({{ p.id }}, '{{ p.name }}', {{ p.price }})" class="btn btn-danger btn-primary">Đặt mua</a>
                 </div>
             </div>
         </div>

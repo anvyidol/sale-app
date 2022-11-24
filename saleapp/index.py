@@ -1,5 +1,5 @@
-from flask import render_template, request, redirect
-from saleapp import app, dao, login
+from flask import render_template, request, redirect, session, jsonify
+from saleapp import app, dao, login, utils
 from flask_login import login_user, logout_user
 import cloudinary.uploader
 
@@ -14,8 +14,41 @@ def home():
 
 @app.route('/product/<int:product_id>')
 def product_detail(product_id):
-    p = dao.get_product_by_id   (product_id)
+    p = dao.get_product_by_id(product_id)
     return render_template('details.html', product=p)
+
+
+@app.route('/cart')
+def get_cart():
+    return render_template('cart.html')
+
+
+@app.route('/api/cart', methods=['post'])
+def add_p_to_cart():
+    data = request.json
+    id = str(data['id'])
+    name = data['name']
+    price = data['price']
+
+    key = app.config['CART_KEY']
+    cart = session[key] if key in session else {}
+
+    if id in cart:
+        cart[id]['quantity'] = cart[id]['quantity'] + 1
+    else:
+        name = data['name']
+        price = data['price']
+
+        cart[id] = {
+            "id": id,
+            "name": name,
+            "price": price,
+            "quantity": 1
+        }
+
+    session[key] = cart
+
+    return jsonify(utils.cart_stats(cart))
 
 
 @login.user_loader
