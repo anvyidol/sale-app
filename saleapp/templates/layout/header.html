@@ -23,9 +23,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-secondary" href="/cart">Giỏ hàng <span class="cart_count badge bg-danger">0</span></a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-danger" href="/logout">Đăng xuất</a>
                 </li>
                 {% else %}
@@ -36,7 +33,9 @@
                     <a class="nav-link text-success" href="/login">Đăng nhập</a>
                 </li>
                 {% endif %}
-
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="/cart">Giỏ hàng <span class="cart_count badge bg-danger">{{ cart.total_quantity }}</span></a>
+                </li>
 
             </ul>
             <form class="d-flex">

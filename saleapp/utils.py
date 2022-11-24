@@ -10,3 +10,6 @@ def cart_stats(cart):
         "total": total,
         "total_quantity": total_quantity
     }
+
+
+

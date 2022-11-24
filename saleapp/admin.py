@@ -8,7 +8,7 @@ from wtforms import TextAreaField
 from wtforms.widgets import TextArea
 
 
-admin = Admin(app=app, name="Quản trị CSDL", template_mode='bootstrap4')
+admin = Admin(app=app, name="Quản trị CSDL", template_mode='bootstrap4', static_url_path='/static/admin/')
 
 
 class AuthenticatedAdminView(ModelView):

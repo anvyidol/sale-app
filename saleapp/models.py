@@ -1,8 +1,9 @@
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from saleapp import db, app
-from sqlalchemy import Column, Integer, String, Text, Float, ForeignKey, Boolean, Enum
+from sqlalchemy import Column, Integer, String, Text, Float, ForeignKey, Boolean, Enum, DateTime
 from enum import Enum as UserEnum
 from flask_login import UserMixin
+from datetime import datetime
 import hashlib
 
 
@@ -32,6 +33,13 @@ class Category(BaseModel):
         return self.name
 
 
+prod_tag = db.Table('prod_tag',
+                    Column('product_id', Integer,
+                           ForeignKey('product.id'), nullable=False, primary_key=True),
+                    Column('tag', Integer,
+                           ForeignKey('tag.id'), nullable=False, primary_key=True))
+
+
 class Product(BaseModel):
     name = Column(String(50), nullable=False)
     description = Column(Text)
@@ -39,9 +47,32 @@ class Product(BaseModel):
     image = Column(String(100))
     active = Column(Boolean, default=True)
     category_id = Column(Integer, ForeignKey(Category.id), nullable=False)
+    tags = relationship('Tag', secondary='prod_tag', lazy='subquery',
+                        backref=backref('products', lazy=True))
+    receipt_details = relationship('ReceiptDetails', backref='product', lazy=True)
 
     def __str__(self):
         return self.name
+
+
+class Tag(BaseModel):
+    name = Column(String(50), nullable=False, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Receipt(BaseModel):
+    created_date = Column(DateTime, default=datetime.now())
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
+    details = relationship('ReceiptDetails', backref='receipt', lazy=True)
+
+
+class ReceiptDetails(BaseModel):
+    quantity = Column(Integer, default=0)
+    price = Column(Float, default=0)
+    receipt_id = Column(Integer, ForeignKey(Receipt.id), nullable=False)
+    product_id = Column(Integer, ForeignKey(Product.id), nullable=False)
 
 
 if __name__ == '__main__':
@@ -74,5 +105,5 @@ if __name__ == '__main__':
         # db.session.add_all([p1, p2, p3, p4])
         # db.session.commit()
 
-        # db.create_all()
+        db.create_all()
         pass
